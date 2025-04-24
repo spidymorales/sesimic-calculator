@@ -1,74 +1,87 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Seismic Category Report – NBC 2020</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seismic Category Report – NBC 2020</title>
 
-  <!-- pdfmake -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <!-- pdfmake -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 1rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto; /* Center the container */
+        line-height: 1.6; /* Improve readability */
+        color: #333;
+      }
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 1rem;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto; /* Center the container */
-      line-height: 1.6; /* Improve readability */
-      color: #333;
-    }
+      h1,
+      h2,
+      h3 {
+        color: #0056b3; /* A shade of blue for headings */
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      h1 {
+        font-size: 1.8rem;
+        margin-top: 0;
+      }
+      h2 {
+        font-size: 1.4rem;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.25rem;
+        margin-bottom: 1rem;
+      }
+      h3 {
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+      }
 
-    h1, h2, h3 {
-      color: #0056b3; /* A shade of blue for headings */
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    h1 { font-size: 1.8rem; margin-top: 0; }
-    h2 { font-size: 1.4rem; border-bottom: 1px solid #eee; padding-bottom: 0.25rem; margin-bottom: 1rem; }
-    h3 { font-size: 1.1rem; margin-top: 1rem; margin-bottom: 0.5rem;}
-
-    .form-section {
+      .form-section {
         background-color: #f9f9f9;
         padding: 1.5rem;
         border: 1px solid #ddd;
         border-radius: 5px;
         margin-bottom: 1.5rem;
-    }
+      }
 
-    .group {
+      .group {
         margin-bottom: 1rem;
-    }
+      }
 
-    label {
+      label {
         font-weight: 600;
         display: block;
-        margin-bottom: .4rem; /* More space below label */
+        margin-bottom: 0.4rem; /* More space below label */
         color: #555;
-    }
+      }
 
-    input[type="text"],
-    select,
-    button {
+      input[type="text"],
+      select,
+      button {
         width: 100%;
-        padding: .75rem; /* Increased padding */
+        padding: 0.75rem; /* Increased padding */
         box-sizing: border-box;
         border: 1px solid #ccc;
         border-radius: 4px; /* Slightly rounded corners */
         font-size: 1rem; /* Consistent font size */
-    }
+      }
 
-    input[type="text"]:focus,
-    select:focus,
-    button:focus {
+      input[type="text"]:focus,
+      select:focus,
+      button:focus {
         outline: none;
         border-color: #007bff; /* Highlight on focus */
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
-    }
+      }
 
-    button {
+      button {
         background-color: #007bff;
         color: white;
         border: none;
@@ -76,223 +89,257 @@
         font-weight: 600;
         transition: background-color 0.2s ease; /* Smooth hover effect */
         margin-top: 1rem; /* Space above button */
-    }
+      }
 
-    button:hover {
+      button:hover {
         background-color: #0056b3;
-    }
+      }
 
-     button#pdfBtn {
+      button#pdfBtn {
         background-color: #28a745; /* Green for PDF button */
         margin-top: 1rem;
-     }
-     button#pdfBtn:hover {
+      }
+      button#pdfBtn:hover {
         background-color: #218838;
-     }
+      }
 
-
-    #reportContent {
+      #reportContent {
         border: 1px solid #ccc;
         padding: 1.5rem; /* Increased padding */
         margin-top: 1.5rem; /* Space above report */
         background-color: #fff;
         border-radius: 5px;
-    }
+      }
 
-    /* Style for displaying results */
-    .result-group {
+      /* Style for displaying results */
+      .result-group {
         margin-bottom: 1.5rem; /* Space between groups of results */
-    }
+      }
 
-    .result-item {
+      .result-item {
         display: flex; /* Use flexbox for key-value alignment */
         margin-bottom: 0.5rem; /* Space between items */
         flex-wrap: wrap; /* Allow wrapping on small screens */
-    }
+      }
 
-    .result-item b {
-        flex-basis: 180px; /* Fixed width for the label/key */
+      .result-item b {
+        flex-basis: 200px; /* Increased fixed width for the label/key */
         margin-right: 1rem;
         flex-shrink: 0; /* Prevent label from shrinking */
         color: #555;
-    }
+      }
 
-    .result-item span {
-         flex-grow: 1; /* Allow value to take remaining space */
-         word-break: break-word; /* Break long URLs */
-    }
+      .result-item span {
+        flex-grow: 1; /* Allow value to take remaining space */
+        word-break: break-word; /* Break long URLs */
+      }
 
-    .result-item span a {
+      .result-item span a {
         word-break: break-all; /* Aggressive break for long URLs */
-    }
+      }
 
-    .discussion p {
+      .discussion p {
         margin-bottom: 0.8rem;
-    }
+      }
 
-    .loading {
+      .loading {
         display: none;
         text-align: center;
         margin: 20px 0;
         font-weight: bold;
         color: #007bff; /* Blue loading text */
         font-size: 1.1rem;
-    }
-  </style>
-</head>
+      }
+    </style>
+  </head>
 
-<body>
-  <h1>Seismic Category Calculator — NBC 2020</h1>
+  <body>
+    <h1>Seismic Category Calculator — NBC 2020</h1>
 
-  <!-- Inputs ------------------------------------------------>
-  <div class="form-section">
-    <h2>Calculation Inputs</h2>
-    <div class="group">
-      <label for="address">Project Address</label>
-      <input id="address" type="text" placeholder="123 Main St, City, Province">
-    </div>
-
-    <div class="group">
-      <label for="siteClass">Site Class</label>
-      <select id="siteClass">
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C" selected>C</option>
-        <option value="D">D</option>
-        <option value="E">E</option>
-      </select>
-    </div>
-
-    <div class="group">
-      <label for="importance">Importance Factor (Iₑ)</label>
-      <select id="importance">
-        <option value="0.8">0.8 (Low)</option>
-        <option value="1.0" selected>1.0 (Normal)</option>
-        <option value="1.3">1.3 (High)</option>
-        <option value="1.5">1.5 (Post-Disaster)</option>
-      </select>
-    </div>
-
-    <button id="calcBtn">Calculate Seismic Category</button>
-    <div id="loading" class="loading">Processing data...</div>
-  </div>
-
-
-  <!-- Report box ------------------------------------------->
-  <div id="reportContent" style="display:none;">
-    <h2>Seismic Category Report</h2>
-
-    <div class="result-group">
-      <h3>Project Details</h3>
+    <!-- Inputs ------------------------------------------------>
+    <div class="form-section">
+      <h2>Calculation Inputs</h2>
       <div class="group">
+        <label for="address">Project Address</label>
+        <input
+          id="address"
+          type="text"
+          placeholder="123 Main St, City, Province"
+        />
+      </div>
+
+      <div class="group">
+        <label for="siteClass">Site Class</label>
+        <select id="siteClass">
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C" selected>C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
+        </select>
+      </div>
+
+      <div class="group">
+        <label for="importance">Importance Factor (Iₑ)</label>
+        <select id="importance">
+          <option value="0.8">0.8 (Low)</option>
+          <option value="1.0" selected>1.0 (Normal)</option>
+          <option value="1.3">1.3 (High)</option>
+          <option value="1.5">1.5 (Post-Disaster)</option>
+        </select>
+      </div>
+
+      <button id="calcBtn">Calculate Seismic Category</button>
+      <div id="loading" class="loading">Processing data...</div>
+    </div>
+
+    <!-- Report box ------------------------------------------->
+    <div id="reportContent" style="display: none">
+      <h2>Seismic Category Report</h2>
+
+      <div class="result-group">
+        <h3>Project Details</h3>
+        <div class="group">
           <label for="projName">Project Name</label>
-          <input id="projName" type="text">
-      </div>
-      <div class="group">
+          <input id="projName" type="text" />
+        </div>
+        <div class="group">
           <label for="architectName">Architect Name</label>
-          <input id="architectName" type="text">
-      </div>
-      <div class="group">
+          <input id="architectName" type="text" />
+        </div>
+        <div class="group">
           <label for="projNumber">Project Number</label>
-          <input id="projNumber" type="text">
+          <input id="projNumber" type="text" />
+        </div>
+      </div>
+
+      <div id="results">
+        <!-- Calculation results will be inserted here by JS -->
       </div>
     </div>
 
-    <div id="results">
-      <!-- Calculation results will be inserted here by JS -->
-    </div>
+    <button id="pdfBtn" style="display: none">Generate PDF Report</button>
 
-  </div>
-
-  <button id="pdfBtn" style="display:none;">Generate PDF Report</button>
-
-  <!-- ================= SCRIPT ================= -->
-  <script>
-    /* Helpers */
-    const $ = id => document.getElementById(id);
-    const classifySC = (v,p) => {
-      // Thresholds based on NBC 2020 Table 4.1.8.5-B
-      // (Approximate mapping from Sa to SC)
-      // Note: Table 4.1.8.5-B uses IeSa(0.2) and IeSa(1.0) values
-      if (p === '0.2') { // IeSa(0.2) threshold
-        if (v < 0.20) return 'SC1';
-        if (v < 0.35) return 'SC2';
-        if (v < 0.75) return 'SC3';
-        return 'SC4';
-      } else { // IeSa(1.0) threshold
-        if (v < 0.10) return 'SC1';
-        if (v < 0.20) return 'SC2';
-        if (v < 0.30) return 'SC3';
-        return 'SC4';
-      }
-    };
-
-    let lastCalc = null;   // store data for the PDF
-
-    /* CALCULATE */
-    $('calcBtn').onclick = async () =>{
-      const addr = $('address').value.trim();
-      const site = $('siteClass').value;
-      const Ie   = parseFloat($('importance').value);
-      if(!addr){ alert('Please enter a Project Address.'); return; }
-
-      $('calcBtn').disabled = true; // Disable button during processing
-      $('loading').style.display='block';
-      $('reportContent').style.display='none'; // Hide previous report
-      $('pdfBtn').style.display='none';
-
-      let data;
-      try{
-        // Simulate API delay (remove in production if not needed)
-        // await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Make sure the API endpoint is correct relative to your server setup
-        const r = await fetch('/api/seismic',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({address:addr, siteClass:site})
-        });
-        if(!r.ok) {
-          let errorMessage = await r.text();
-           // Attempt to parse error if it's JSON
-           try {
-               const errorJson = JSON.parse(errorMessage);
-               errorMessage = errorJson.error || errorMessage;
-           } catch (e) {
-               // Not JSON, use raw text
-           }
-          throw new Error(errorMessage || `HTTP error! status: ${r.status}`);
+    <!-- ================= SCRIPT ================= -->
+    <script>
+      /* Helpers */
+      const $ = (id) => document.getElementById(id);
+      const classifySC = (v, p) => {
+        // Thresholds based on NBC 2020 Table 4.1.8.5-B
+        // Input 'v' is the IeS(T) value
+        if (p === "0.2") {
+          // IeS(0.2) threshold
+          if (v < 0.2) return "SC1";
+          if (v < 0.35) return "SC2";
+          if (v <= 0.75) return "SC3"; // Table uses <= 0.75
+          return "SC4";
+        } else {
+          // IeS(1.0) threshold
+          if (v < 0.1) return "SC1";
+          if (v < 0.2) return "SC2";
+          if (v <= 0.3) return "SC3"; // Table uses <= 0.30
+          return "SC4";
         }
-        data = await r.json();
-         if (!data || typeof data.sa0p2 === 'undefined' || typeof data.sa1p0 === 'undefined' || !data.coords) {
-             throw new Error('Invalid response from API: Missing data');
-         }
+      };
 
-      }catch(err){
-        alert('Error fetching seismic data: '+err.message);
-        $('loading').style.display='none';
-        $('calcBtn').disabled = false;
-        return;
-      }
+      let lastCalc = null; // store data for the PDF
 
-      // --- Calculations ---
-      const {lat,lon} = data.coords;
-      const Sa02    = data.sa0p2;
-      const Sa10    = data.sa1p0;
-      const IE_S02    = Sa02 * Ie;
-      const IE_S10    = Sa10 * Ie;
-      // Classify using the ADJUSTED values, per NBC Table 4.1.8.5-B reference in the discussion
-      const sc02      = classifySC(IE_S02,'0.2');
-      const sc10      = classifySC(IE_S10,'1.0');
-      // Determine the final category number
-      const finalSC_num   = Math.max(+sc02.slice(2), +sc10.slice(2)); // Extract number from SC1, SC2 etc.
-       const finalSC = 'SC' + finalSC_num;
-      const brace     = (finalSC_num <= 2 && Ie < 1.5) ? 'not required' : 'required'; // NBC 4.1.8.18(2)
-      const today     = new Date().toISOString().split('T')[0];
-      const shareURL  = `https://www.seismescanada.rncan.gc.ca/hazard-alea/interpolat/nbc2020-cnb2020-en.php?code=nbc2020&latitude=${lat.toFixed(4)}&longitude=${lon.toFixed(4)}&siteDesignation=XS&siteDesignationXS=${site}`; // Increased precision for URL
+      /* CALCULATE */
+      $("calcBtn").onclick = async () => {
+        const addr = $("address").value.trim();
+        const site = $("siteClass").value;
+        const Ie = parseFloat($("importance").value);
+        if (!addr) {
+          alert("Please enter a Project Address.");
+          return;
+        }
 
-      // --- Show results in the page ---
-      $('results').innerHTML = `
+        $("calcBtn").disabled = true; // Disable button during processing
+        $("loading").style.display = "block";
+        $("reportContent").style.display = "none"; // Hide previous report
+        $("pdfBtn").style.display = "none";
+
+        let data;
+        try {
+          // Simulate API delay (remove in production if not needed)
+          // await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Make sure the API endpoint is correct relative to your server setup
+          // *** IMPORTANT: API MUST NOW RETURN sa0p5 AS WELL ***
+          const r = await fetch("/api/seismic", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ address: addr, siteClass: site }),
+          });
+          if (!r.ok) {
+            let errorMessage = await r.text();
+            // Attempt to parse error if it's JSON
+            try {
+              const errorJson = JSON.parse(errorMessage);
+              errorMessage = errorJson.error || errorMessage;
+            } catch (e) {
+              // Not JSON, use raw text
+            }
+            throw new Error(errorMessage || `HTTP error! status: ${r.status}`);
+          }
+          data = await r.json();
+          // *** IMPORTANT: VALIDATE sa0p5 IS PRESENT ***
+          if (
+            !data ||
+            typeof data.sa0p2 === "undefined" ||
+            typeof data.sa0p5 === "undefined" ||
+            typeof data.sa1p0 === "undefined" ||
+            !data.coords
+          ) {
+            throw new Error(
+              "Invalid response from API: Missing Sa(0.2), Sa(0.5), Sa(1.0) or coordinates data",
+            );
+          }
+        } catch (err) {
+          alert("Error fetching seismic data: " + err.message);
+          $("loading").style.display = "none";
+          $("calcBtn").disabled = false;
+          return;
+        }
+
+        // --- Calculations (Updated per NBC 4.1.8.4(6) and Table 4.1.8.4-C) ---
+        const { lat, lon } = data.coords;
+        const Sa02 = data.sa0p2; // Sa(0.2, X) from API
+        const Sa05 = data.sa0p5; // Sa(0.5, X) from API
+        const Sa10 = data.sa1p0; // Sa(1.0, X) from API
+
+        // Determine Design Spectral Acceleration S(T)
+        // S(0.2) = greater of Sa(0.2, X) and Sa(0.5, X) (Table 4.1.8.4-C)
+        const S02 = Math.max(Sa02, Sa05);
+        // S(1.0) = Sa(1.0, X) (Table 4.1.8.4-C)
+        const S10 = Sa10;
+
+        // Calculate IeS(T) values used for Seismic Category classification (Table 4.1.8.5-B)
+        const IE_S02 = S02 * Ie;
+        const IE_S10 = S10 * Ie;
+
+        // Classify using the IeS(T) values against Table 4.1.8.5-B thresholds
+        const sc02 = classifySC(IE_S02, "0.2");
+        const sc10 = classifySC(IE_S10, "1.0");
+
+        // Determine the final category number (more severe)
+        const finalSC_num = Math.max(+sc02.slice(2), +sc10.slice(2)); // Extract number from SC1, SC2 etc.
+        const finalSC = "SC" + finalSC_num;
+
+        // Non-structural bracing requirement check (NBC 4.1.8.18(2))
+        // Requirement doesn't apply to SC1 or SC2 UNLESS it's a Post-disaster building (IE=1.5)
+        // So, bracing IS required if:
+        // (finalSC is SC3 or SC4) OR (finalSC is SC1 or SC2 AND Ie is 1.5)
+        // Conversely, bracing is NOT required only if:
+        // (finalSC is SC1 or SC2) AND (Ie is not 1.5)
+        const brace =
+          finalSC_num <= 2 && Ie < 1.5 ? "not required" : "required";
+
+        const today = new Date().toISOString().split("T")[0];
+        const shareURL = `https://www.seismescanada.rncan.gc.ca/hazard-alea/interpolat/nbc2020-cnb2020-en.php?code=nbc2020&latitude=${lat.toFixed(4)}&longitude=${lon.toFixed(4)}&siteDesignation=XS&siteDesignationXS=${site}`; // Increased precision for URL
+
+        // --- Show results in the page ---
+        $("results").innerHTML = `
         <div class="result-group">
             <h3>Calculation Inputs Summary</h3>
             <div class="result-item"><b>Project Address:</b> <span>${addr}</span></div>
@@ -302,173 +349,277 @@
             <div class="result-item"><b>Importance Factor (Iₑ):</b> <span>${Ie}</span></div>
             <div class="result-item"><b>Code Edition:</b> <span>NBC 2020</span></div>
             <div class="result-item"><b>Report Date:</b> <span>${today}</span></div>
-            <div class="result-item"><b>Shareable URL:</b> <span><a href="${shareURL}" target="_blank">${shareURL}</a></span></div>
+<div class="result-item"><b>NRC Hazard Calc URL:</b> <span><a href="${shareURL}" target="_blank">${shareURL}</a></span></div>
         </div>
 
         <div class="result-group">
-            <h3>5%-Damped Spectral Acceleration</h3>
-            <div class="result-item"><b>Sa(0.2, X):</b> <span>${Sa02}</span></div>
-            <div class="result-item"><b>Sa(1.0, X):</b> <span>${Sa10}</span></div>
+            <h3>5%-Damped Spectral Acceleration - Sa(T,X), 2%/50yr</h3>
+            <div class="result-item"><b>Sa(0.2, X):</b> <span>${Sa02} g</span></div>
+            <div class="result-item"><b>Sa(0.5, X):</b> <span>${Sa05} g</span></div>
+            <div class="result-item"><b>Sa(1.0, X):</b> <span>${Sa10} g</span></div>
         </div>
 
          <div class="result-group">
-            <h3>Seismic Design Calculation - IeSa(T)</h3>
+            <h3>Design Spectral Acceleration - S(T), Table 4.1.8.4-C</h3>
+            <div class="result-item"><b>S(0.2):</b> <span>${S02.toFixed(3)} g</span></div>
+            <div class="result-item"><b>S(1.0):</b> <span>${S10.toFixed(3)} g</span></div>
+        </div>
+
+         <div class="result-group">
+            <h3>Seismic Design Calculation - IeS(T) (Table 4.1.8.5-B)</h3>
             <div class="result-item"><b>IeS(0.2):</b> <span>${IE_S02.toFixed(3)} g</span></div>
             <div class="result-item"><b>IeS(1.0):</b> <span>${IE_S10.toFixed(3)} g</span></div>
         </div>
 
         <div class="result-group">
-            <h3>Building Seismic Category Check</h3>
-            <div class="result-item"><b>IeS(0.2):</b> <span><strong>${sc02}</strong></span></div>
-            <div class="result-item"><b>IeS(1.0):</b> <span><strong>${sc10}</strong></span></div>
+            <h3>Building Seismic Category Check (Table 4.1.8.5-B)</h3>
+            <div class="result-item"><b>Based on IeS(0.2):</b> <span>${sc02}</span></div>
+            <div class="result-item"><b>Based on IeS(1.0):</b> <span>${sc10}</span></div>
             <div class="result-item"><b>Governing Seismic Category:</b> <span><strong>${finalSC}</strong></span></div>
         </div>
 
         <div class="result-group discussion">
             <h3>Discussion / Conclusion</h3>
-            <p>In accordance with NBC 2020 Table 4.1.8.5-B, the Seismic Category for this building is <strong>${finalSC}</strong>.</p>
-            <p>In accordance with NBC 2020 Article 4.1.8.18 (2), seismic restraint of non-structural components for this building is <strong>${brace}</strong>.</p>
+            <p>In accordance with NBC 2020 Article 4.1.8.5(2) and Table 4.1.8.5-B, using the calculated IeS(T) values (IeS(0.2) = ${IE_S02.toFixed(3)}, IeS(1.0) = ${IE_S10.toFixed(3)}), the governing Seismic Category (SC) for this building is <strong>${finalSC}</strong>.</p>
+            <p>In accordance with NBC 2020 Article 4.1.8.18 (2), seismic restraint of non-structural components (Cat 6 to Cat 22) for this building is <strong>${brace}</strong>.</p>
         </div>
         `;
 
-      $('reportContent').style.display='block';
-      $('pdfBtn').style.display='block';
-      $('loading').style.display='none';
-      $('calcBtn').disabled = false;
+        $("reportContent").style.display = "block";
+        $("pdfBtn").style.display = "block";
+        $("loading").style.display = "none";
+        $("calcBtn").disabled = false;
 
-
-      /* Save info for the PDF */
-      lastCalc = {
-        today, addr, lat, lon, site, Ie,
-        Sa02, Sa10, IE_S02, IE_S10, sc02, sc10, finalSC, brace, shareURL
+        /* Save info for the PDF */
+        lastCalc = {
+          today,
+          addr,
+          lat,
+          lon,
+          site,
+          Ie,
+          Sa02,
+          Sa05,
+          Sa10, // Store raw Sa values
+          S02,
+          S10, // Store calculated S values
+          IE_S02,
+          IE_S10,
+          sc02,
+          sc10,
+          finalSC,
+          brace,
+          shareURL,
+        };
       };
-    };
 
-    /* PDF via pdfmake */
-    $('pdfBtn').onclick = () =>{
-      if(!lastCalc){ alert('Run a calculation first'); return; }
-
-      const proj   = $('projName').value.trim()      || '—';
-      const arch   = $('architectName').value.trim() || '—';
-      const pnum   = $('projNumber').value.trim()    || '—';
-
-      const docDefinition = {
-        content: [
-          { text: 'Seismic Category Report – NBC 2020', style: 'header' },
-
-          { text: 'Project Details', style: 'subheader', margin: [0, 20, 0, 10] },
-          {
-            style: 'tableExample',
-            table: {
-              widths: [180, '*'], // Fixed width for labels, auto width for values
-              body: [
-                ['Report Date:', lastCalc.today],
-                ['Project Name:', proj],
-                ['Architect Name:', arch],
-                ['Project Number:', pnum],
-                ['Project Address:', lastCalc.addr],
-                ['Latitude / Longitude:', `${lastCalc.lat.toFixed(6)} / ${lastCalc.lon.toFixed(6)}`],
-                ['Site Class:', lastCalc.site],
-                ['Importance Factor:', lastCalc.Ie],
-                ['Code Edition:', 'NBC 2020'],
-                ['Shareable URL:', { text: lastCalc.shareURL, link: lastCalc.shareURL, style: 'url' }], // Make URL clickable
-              ]
-            },
-            layout: 'noBorders' // Use noBorders layout for clean key-value list look
-          },
-
-          { text: 'Calculation Details', style: 'subheader', margin: [0, 20, 0, 10] },
-           {
-            style: 'tableExample',
-            table: {
-              widths: [180, '*'],
-              body: [
-                ['Sa(0.2):', `${lastCalc.Sa02}`],
-                ['Sa(1.0):', `${lastCalc.Sa10}`],
-              ]
-            },
-            layout: 'noBorders'
-          },
-
-           { text: 'Adjusted Design Values (IeSa)', style: 'subheader', margin: [0, 20, 0, 10] },
-           {
-            style: 'tableExample',
-            table: {
-              widths: [180, '*'],
-              body: [
-                ['IeSa(0.2):', `${lastCalc.IE_S02.toFixed(3)}`],
-                ['IₑSa(1.0):', `${lastCalc.IE_S10.toFixed(3)}`],
-              ]
-            },
-            layout: 'noBorders'
-          },
-
-           { text: 'Seismic Categories (Based on IₑSa values)', style: 'subheader', margin: [0, 20, 0, 10] },
-           {
-            style: 'tableExample',
-            table: {
-              widths: [180, '*'],
-              body: [
-                ['Seismic Category (0.2 s):', lastCalc.sc02],
-                ['Seismic Category (1.0 s):', lastCalc.sc10],
-                ['Governing Seismic Category:', lastCalc.finalSC],
-                ['Bracing required? (NBC 4.1.8.18(2)):', lastCalc.brace], // Add bracing result to categories section
-              ]
-            },
-            layout: 'noBorders'
-          },
-
-
-          { text: 'Discussion / Conclusion', style: 'subheader', margin: [0, 20, 0, 10] },
-          {
-              text: [
-                `Based on the calculated Adjusted Design Values (IeSa(0.2) = ${lastCalc.IE_S02.toFixed(3)} g, IₑSa(1.0) = ${lastCalc.IE_S10.toFixed(3)} g) and applying the criteria from NBC 2020 Table 4.1.8.4, the Seismic Categories are determined as ${lastCalc.sc02} (based on IₑSa(0.2)) and ${lastCalc.sc10} (based on IₑSa(1.0)). The governing Seismic Category for this location and Importance Factor is ${lastCalc.finalSC}.`,
-              ],
-              margin: [0, 0, 0, 10] // Margin after this paragraph
-          },
-           {
-              text: [
-                `In accordance with NBC 2020 Article 4.1.8.18 (2), seismic restraint of non-structural components for this building and Importance Factor is ${lastCalc.brace}.`,
-              ]
-          },
-
-
-          { text: 'Disclaimer: This report provides a preliminary seismic category based on the provided inputs and publicly available seismic hazard data (NRCan). A complete seismic design requires review by a qualified professional engineer.', style: 'disclaimer', margin: [0, 40, 0, 0] },
-
-        ],
-        styles: {
-          header: {
-            fontSize: 18,
-            bold: true,
-            margin: [0, 0, 0, 20] // Bottom margin
-          },
-          subheader: {
-            fontSize: 14,
-            bold: true
-          },
-          tableExample: {
-             margin: [0, 5, 0, 15] // Top and bottom margin for tables
-          },
-          url: {
-              color: 'blue',
-              decoration: 'underline',
-          },
-          disclaimer: {
-            fontSize: 9,
-            italics: true,
-            alignment: 'center' // Center the disclaimer
-          }
-        },
-        defaultStyle: {
-          // Default font size for the document
-          fontSize: 10,
+      /* PDF via pdfmake */
+      $("pdfBtn").onclick = () => {
+        if (!lastCalc) {
+          alert("Run a calculation first");
+          return;
+          return;
         }
-      };
 
-      const fname = (proj!=='—'?proj.replace(/[^a-zA-Z0-9]/g,'_')+'_':'') +
-                    lastCalc.today + '.pdf'; // Clean up project name for filename
-      pdfMake.createPdf(docDefinition).download(fname);
-    };
-  </script>
-</body>
+        const proj = $("projName").value.trim() || "—";
+        const arch = $("architectName").value.trim() || "—";
+        const pnum = $("projNumber").value.trim() || "—";
+
+        const docDefinition = {
+          content: [
+            { text: "Seismic Category Report – NBC 2020", style: "header" },
+
+            {
+              text: "Project Details",
+              style: "subheader",
+              margin: [0, 20, 0, 10],
+            },
+            {
+              style: "tableExample",
+              table: {
+                widths: [200, "*"], // Fixed width for labels, auto width for values
+                body: [
+                  ["Report Date:", lastCalc.today],
+                  ["Project Name:", proj],
+                  ["Architect Name:", arch],
+                  ["Project Number:", pnum],
+                  ["Project Address:", lastCalc.addr],
+                  [
+                    "Latitude / Longitude:",
+                    `${lastCalc.lat.toFixed(6)} / ${lastCalc.lon.toFixed(6)}`,
+                  ],
+                  ["Site Class:", lastCalc.site],
+                  ["Importance Factor (Iₑ):", lastCalc.Ie],
+                  ["Code Edition:", "NBC 2020"],
+                  [
+                    "NRCan Hazard Map URL:",
+                    {
+                      text: lastCalc.shareURL,
+                      link: lastCalc.shareURL,
+                      style: "url",
+                    },
+                  ], // Make URL clickable
+                ],
+              },
+              layout: "noBorders", // Use noBorders layout for clean key-value list look
+            },
+
+            {
+              text: "5%-Damped Spectral Acceleration (Sa(T,X), 2%/50yr)",
+              style: "subheader",
+              margin: [0, 20, 0, 10],
+            },
+            {
+              style: "tableExample",
+              table: {
+                widths: [200, "*"],
+                body: [
+                  ["Sa(0.2, X):", `${lastCalc.Sa02} g`],
+                  ["Sa(0.5, X):", `${lastCalc.Sa05} g`], // Added Sa(0.5, X)
+                  ["Sa(1.0, X):", `${lastCalc.Sa10} g`],
+                ],
+              },
+              layout: "noBorders",
+            },
+
+            {
+              text: "Design Spectral Acceleration (S(T), Table 4.1.8.4-C)",
+              style: "subheader",
+              margin: [0, 20, 0, 10],
+            },
+            {
+              style: "tableExample",
+              table: {
+                widths: [200, "*"],
+                body: [
+                  [
+                    "S(0.2) [max(Sa(0.2), Sa(0.5))]:",
+                    `${lastCalc.S02.toFixed(3)} g`,
+                  ], // Use calculated S02
+                  ["S(1.0) [Sa(1.0)]:", `${lastCalc.S10.toFixed(3)} g`], // Use calculated S10
+                ],
+              },
+              layout: "noBorders",
+            },
+
+            {
+              text: "Seismic Design Calculation - IeS(T) (Table 4.1.8.5-B)",
+              style: "subheader",
+              margin: [0, 20, 0, 10],
+            },
+            {
+              style: "tableExample",
+              table: {
+                widths: [200, "*"],
+                body: [
+                  ["IeS(0.2):", `${lastCalc.IE_S02.toFixed(3)} g`], // Use calculated IeS02
+                  ["IeS(1.0):", `${lastCalc.IE_S10.toFixed(3)} g`], // Use calculated IeS10
+                ],
+              },
+              layout: "noBorders",
+            },
+
+            {
+              text: "Building Seismic Category Check (Table 4.1.8.5-B)",
+              style: "subheader",
+              margin: [0, 20, 0, 10],
+            },
+            {
+              style: "tableExample",
+              table: {
+                widths: [200, "*"],
+                body: [
+                  [
+                    `Based on IeS(0.2) = ${lastCalc.IE_S02.toFixed(3)}:`,
+                    lastCalc.sc02,
+                  ], // Referencing correct IeS value
+                  [
+                    `Based on IeS(1.0) = ${lastCalc.IE_S10.toFixed(3)}:`,
+                    lastCalc.sc10,
+                  ], // Referencing correct IeS value
+                  [
+                    "Governing Seismic Category:",
+                    { text: lastCalc.finalSC, bold: true },
+                  ],
+                  [
+                    "Bracing required? (NBC 4.1.8.18(2)):",
+                    { text: lastCalc.brace, bold: true },
+                  ], // Add bracing result to categories section
+                ],
+              },
+              layout: "noBorders",
+            },
+
+            {
+              text: "Discussion / Conclusion",
+              style: "subheader",
+              margin: [0, 20, 0, 10],
+            },
+            {
+              text: [
+                `Based on the 2%/50yr Sa(T,X) values for the site, the Design Spectral Acceleration values according to NBC 2020 Table 4.1.8.4-C are S(0.2) = ${lastCalc.S02.toFixed(3)} g and S(1.0) = ${lastCalc.S10.toFixed(3)} g.`, // Reference S(T) calculation
+              ],
+              margin: [0, 0, 0, 5],
+            },
+            {
+              text: [
+                `Applying the Importance Factor (Ie = ${lastCalc.Ie}), the Adjusted Design Values (IeS(T)) are calculated as IeS(0.2) = ${lastCalc.IE_S02.toFixed(3)} g and IeS(1.0) = ${lastCalc.IE_S10.toFixed(3)} g.`, // Reference IeS(T) calculation
+              ],
+              margin: [0, 0, 0, 5],
+            },
+            {
+              text: [
+                `In accordance with NBC 2020 Article 4.1.8.5(2) and Table 4.1.8.5-B, these IeS values result in Seismic Categories of ${lastCalc.sc02} (based on IeS(0.2)) and ${lastCalc.sc10} (based on IeS(1.0)). The governing Seismic Category for this location and Importance Factor is ${lastCalc.finalSC} (the more severe category).`, // Reference SC determination
+              ],
+              margin: [0, 0, 0, 10], // Margin after this paragraph
+            },
+            {
+              text: [
+                `In accordance with NBC 2020 Article 4.1.8.18 (2), seismic restraint of non-structural components for this building is ${lastCalc.brace}.`,
+              ],
+            },
+
+            {
+              text: "Disclaimer: This report provides a preliminary seismic category based on the provided inputs and publicly available seismic hazard data (NRCan). A complete seismic design requires review by a qualified professional engineer.",
+              style: "disclaimer",
+              margin: [0, 40, 0, 0],
+            },
+          ],
+          styles: {
+            header: {
+              fontSize: 18,
+              bold: true,
+              margin: [0, 0, 0, 20], // Bottom margin
+            },
+            subheader: {
+              fontSize: 14,
+              bold: true,
+            },
+            tableExample: {
+              margin: [0, 5, 0, 15], // Top and bottom margin for tables
+            },
+            url: {
+              color: "blue",
+              decoration: "underline",
+            },
+            disclaimer: {
+              fontSize: 9,
+              italics: true,
+              alignment: "center", // Center the disclaimer
+            },
+          },
+          defaultStyle: {
+            // Default font size for the document
+            fontSize: 10,
+          },
+        };
+
+        const fname =
+          (proj !== "—" ? proj.replace(/[^a-zA-Z0-9]/g, "_") + "_" : "") +
+          lastCalc.today +
+          ".pdf"; // Clean up project name for filename
+        pdfMake.createPdf(docDefinition).download(fname);
+      };
+    </script>
+  </body>
 </html>
